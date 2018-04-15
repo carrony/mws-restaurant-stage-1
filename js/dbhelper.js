@@ -147,10 +147,34 @@ class DBHelper {
   }
 
   /**
-   * Restaurant image URL.
+   * Restaurant image srcset for responsives images.
+   */
+  static imagesSrcsetForRestaurant(restaurant) {
+    // adding atributtes for responsive images
+    const extension=restaurant.photograph.match(/\.([^.\\\/]+)$/).pop();
+    const filename = restaurant.photograph.replace(/\.([^.\\\/]+)$/,'')
+    return (`/img/${filename}-small.${extension} 250w,
+            /img/${filename}-medium.${extension} 460w,
+            /img/${filename}-large.${extension} 800w`);
+  }
+
+  /**
+   * Restaurant image srcset for responsives images.
+   */
+  static imageSizesForRestaurant(inner) {
+    // adding atributtes for responsive images
+    if (inner) return `(max-width: 618px) calc(100vw - 80px), calc(50vw - 80px)`;
+    return `(max-width: 618px) calc(100vw - 90px), calc(50vw - 90px)`;
+  }
+
+   /**
+   * Restaurant image srcset.
    */
   static imageUrlForRestaurant(restaurant) {
-    return (`/img/${restaurant.photograph}`);
+    // adding atributtes for responsive images
+    const extension=restaurant.photograph.match(/\.([^.\\\/]+)$/).pop();
+    const filename = restaurant.photograph.replace(/\.([^.\\\/]+)$/,'')
+    return (`/img/${filename}-small.${extension}`);
   }
 
   /**

@@ -56,8 +56,13 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
   address.innerHTML = restaurant.address;
 
   const image = document.getElementById('restaurant-img');
-  image.className = 'restaurant-img'
+  image.className = 'restaurant-img';
+
+  // TODO: Add alt accessibility
   image.src = DBHelper.imageUrlForRestaurant(restaurant);
+  image.srcset = DBHelper.imagesSrcsetForRestaurant(restaurant);
+  // Adding sizes behaviour with media queries.
+  image.sizes=DBHelper.imageSizesForRestaurant(false);
 
   const cuisine = document.getElementById('restaurant-cuisine');
   cuisine.innerHTML = restaurant.cuisine_type;
@@ -83,7 +88,17 @@ fillRestaurantHoursHTML = (operatingHours = self.restaurant.operating_hours) => 
     row.appendChild(day);
 
     const time = document.createElement('td');
-    time.innerHTML = operatingHours[key];
+    // Create an array with comma separated hours
+    // for rearrange the split timetables
+    const hoursList=operatingHours[key].split(',');
+    for (let index = 0; index < hoursList.length; index++) {
+      const splitHour = document.createElement('div');
+      splitHour.className='split-hour';
+      splitHour.innerHTML=hoursList[index];
+      time.appendChild(splitHour);
+    }
+
+    //time.innerHTML = operatingHours[key];
     row.appendChild(time);
 
     hours.appendChild(row);
@@ -117,16 +132,26 @@ fillReviewsHTML = (reviews = self.restaurant.reviews) => {
  */
 createReviewHTML = (review) => {
   const li = document.createElement('li');
+
+  // Create a div for adding a header for name and date
+  const header = document.createElement('div');
+  header.className='reviews-header';
+  li.appendChild(header);
+
   const name = document.createElement('p');
   name.innerHTML = review.name;
-  li.appendChild(name);
+  // Append in header
+  header.appendChild(name);
 
   const date = document.createElement('p');
   date.innerHTML = review.date;
-  li.appendChild(date);
+  // Append in header
+  header.appendChild(date);
 
   const rating = document.createElement('p');
   rating.innerHTML = `Rating: ${review.rating}`;
+  // Adding class for formatted css
+  rating.className="rating";
   li.appendChild(rating);
 
   const comments = document.createElement('p');
