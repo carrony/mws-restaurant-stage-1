@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
   <link rel="stylesheet" src="//normalize-css.googlecode.com/svn/trunk/normalize.css" />
@@ -17,16 +17,18 @@
   </header>
 
   <main id="maincontent">
+    <!-- For skkiping the maps controls-->
+    <a href="#filtering" class="skip-link">Skip map</a>
     <section id="map-container">
       <div id="map"></div>
     </section>
     <section>
-      <div class="filter-options">
+      <div class="filter-options" id="#filtering" tabindex="-1" role="search">
         <h2>Filter Results</h2>
-        <select id="neighborhoods-select" name="neighborhoods" onchange="updateRestaurants()">
+        <select id="neighborhoods-select" name="neighborhoods" onchange="updateRestaurants()" aria-label="Select neighborhoods">
           <option value="all">All Neighborhoods</option>
         </select>
-        <select id="cuisines-select" name="cuisines" onchange="updateRestaurants()">
+        <select id="cuisines-select" name="cuisines" onchange="updateRestaurants()" aria-label="Select cuisines">
           <option value="all">All Cuisines</option>
         </select>
       </div>
@@ -39,7 +41,7 @@
   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCHX0921RbEIR7guTs60CYfU4mk1b_GBF4&libraries=places&callback=initMap"></script>
 
 
-  <footer id="footer">
+  <footer id="footer" tabindex="0">
     Copyright (c) 2017 <a href="/"><strong>Restaurant Reviews</strong></a> All Rights Reserved.
   </footer>
 

@@ -68,7 +68,7 @@ section {
 
 #footer {
   background-color: #444;
-  color: #aaa;
+  color: #e6dbdb;
   font-size: 8pt;
   letter-spacing: 1px;
   padding: 25px;
@@ -76,8 +76,28 @@ section {
   text-transform: uppercase;
 }
 
+/* Skip link for accesibility reasons */
+.skip-link {
+  position:absolute;
+  top: -500px;
+  left: 0;
+  background: #3397DB;
+  padding: 8px;
+  z-index: 1000;
+}
+
+.skip-link:focus {
+  top:0;
+  color: white;
+}
+
+#restaurant-container .skip-link:focus {
+  position: relative;
+  top: 0;
+}
+
 /* ====================== Navigation ====================== */
-nav {
+nav:not(.breadcrumb-nav) {
   width: 100%;
   height: 100px;
   background-color: #252831;
@@ -86,6 +106,7 @@ nav {
 
 nav h1 {
   margin: auto;
+  line-height: 50px;
 }
 
 nav h1 a {
@@ -142,7 +163,7 @@ nav h1 a {
   align-items: center;
 }
 .filter-options h2 {
-  color: white;
+  color: #000;
   font-size: 1rem;
   font-weight: normal;
   line-height: 1;
@@ -181,6 +202,9 @@ nav h1 a {
   text-align: left;
   margin: 10px 0;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 #restaurants-list .restaurant-img {
   background-color: #ccc;
@@ -194,8 +218,8 @@ nav h1 a {
   object-fit: cover;
 }
 
-/* TODO: this must be h2 */
-#restaurants-list li h1 {
+/* Change to h2 for better fit with accessibility */
+#restaurants-list li h2 {
   color: #f18200;
   font:  14pt/1.3 Arial,sans-serif;
   font-weight: 200;
@@ -212,7 +236,7 @@ nav h1 a {
 #restaurants-list li a {
   background-color: orange;
   border-bottom: 3px solid #eee;
-  color: #fff;
+  color: #461a1a;
   display: inline-block;
   font-size: 10pt;
   margin: 15px 0 0;
@@ -253,8 +277,8 @@ nav h1 a {
 
 #restaurant-name {
   color: #f18200;
-  font: 20px/1.1 Arial,sans-serif;
-  font-weight: 200;
+  font: 24px/1.1 Arial,sans-serif;
+  font-weight: 300;
   letter-spacing: 0;
   margin: 15px 0 30px;
   text-transform: uppercase;
@@ -358,6 +382,7 @@ nav h1 a {
 
 #restaurant-hours td {
   color: #666;
+  font-size: 14px;
 }
 
 /* Rounded borders */
@@ -377,12 +402,18 @@ nav h1 a {
   nav {
     height: 80px;
   }
+  nav h1 {
+    line-height: 80px;
+  }
   .split-hour {
     display: inline;
   }
 
   .split-hour:not(:last-child)::after {
     content: ', ';
+  }
+  #restaurant-hours td {
+    font-size: 16px;
   }
 }
 
@@ -395,6 +426,10 @@ nav h1 a {
 
   nav {
     height: 80px;
+  }
+
+  nav h1 {
+    line-height: 80px;
   }
 
   #restaurants-list li {
@@ -425,6 +460,9 @@ nav h1 a {
 
   .inside #footer {
     width: calc(50% - 10px);
+  }
+  #restaurant-hours td {
+    font-size: 16px;
   }
 }
 

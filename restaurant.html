@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
   <!-- Normalize.css for better cross-browser consistency -->
@@ -19,9 +19,13 @@
       <h1><a href="/">Restaurant Reviews</a></h1>
     </nav>
     <!-- Beginning breadcrumb -->
-    <ul id="breadcrumb" >
-      <li><a href="/">Home</a></li>
-    </ul>
+    <!-- The backgroung must be in the nav element-->
+    <nav aria-label="Breadcrumb" class="breadcrumb-nav">
+        <ol id="breadcrumb" >
+            <li><a href="/">Home</a></li>
+        </ol>
+    </nav>
+
     <!-- End breadcrumb -->
     <!-- End nav -->
   </header>
@@ -29,22 +33,26 @@
 
   <!-- Beginning main -->
   <main id="maincontent">
+    <!-- For skkiping the maps controls-->
+    <a href="#restaurant-container" class="skip-link">Skip map</a>
     <!-- Beginning map -->
     <section id="map-container">
-      <div id="map"></div>
+      <div id="map" aria-label="Location Map"></div>
     </section>
     <!-- End map -->
     <!-- Beginning restaurant -->
-    <section id="restaurant-container">
-      <h1 id="restaurant-name"></h1>
+    <section id="restaurant-container" tabindex="-1">
+      <h2 id="restaurant-name"></h1>
       <img id="restaurant-img">
       <p id="restaurant-cuisine"></p>
       <p id="restaurant-address"></p>
-      <table id="restaurant-hours"></table>
+      <a href="#reviews-container" class="skip-link" >Skip opening timeteable hours</a>
+      <table id="restaurant-hours">
+      </table>
     </section>
     <!-- end restaurant -->
     <!-- Beginning reviews -->
-    <section id="reviews-container">
+    <section id="reviews-container" tabindex="-1">
       <ul id="reviews-list"></ul>
     </section>
     <!-- End reviews -->

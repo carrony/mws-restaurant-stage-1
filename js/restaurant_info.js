@@ -51,14 +51,18 @@ fetchRestaurantFromURL = (callback) => {
 fillRestaurantHTML = (restaurant = self.restaurant) => {
   const name = document.getElementById('restaurant-name');
   name.innerHTML = restaurant.name;
+  name.tabIndex=0;
 
   const address = document.getElementById('restaurant-address');
   address.innerHTML = restaurant.address;
+  address.tabIndex=0;
 
   const image = document.getElementById('restaurant-img');
   image.className = 'restaurant-img';
+  image.tabIndex=0;
 
-  // TODO: Add alt accessibility
+  // Adding alt accessibility
+  image.alt=restaurant.photograph_alt;
   image.src = DBHelper.imageUrlForRestaurant(restaurant);
   image.srcset = DBHelper.imagesSrcsetForRestaurant(restaurant);
   // Adding sizes behaviour with media queries.
@@ -66,6 +70,8 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
 
   const cuisine = document.getElementById('restaurant-cuisine');
   cuisine.innerHTML = restaurant.cuisine_type;
+  cuisine.tabIndex=0;
+  cuisine.setAttribute('aria-label',restaurant.cuisine_type + ' cuisine');
 
   // fill operating hours
   if (restaurant.operating_hours) {
@@ -82,6 +88,7 @@ fillRestaurantHoursHTML = (operatingHours = self.restaurant.operating_hours) => 
   const hours = document.getElementById('restaurant-hours');
   for (let key in operatingHours) {
     const row = document.createElement('tr');
+    row.tabIndex=0;
 
     const day = document.createElement('td');
     day.innerHTML = key;
@@ -132,6 +139,7 @@ fillReviewsHTML = (reviews = self.restaurant.reviews) => {
  */
 createReviewHTML = (review) => {
   const li = document.createElement('li');
+  li.tabIndex=0;
 
   // Create a div for adding a header for name and date
   const header = document.createElement('div');

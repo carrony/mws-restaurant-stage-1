@@ -137,16 +137,21 @@ fillRestaurantsHTML = (restaurants = self.restaurants) => {
  */
 createRestaurantHTML = (restaurant) => {
   const li = document.createElement('li');
+  li.tabIndex=0;
 
   const image = document.createElement('img');
   image.className = 'restaurant-img';
+
+  //ADding Accesibility attributes
+  image.alt=restaurant.photograph_alt;
   image.src = DBHelper.imageUrlForRestaurant(restaurant);
   image.srcset = DBHelper.imagesSrcsetForRestaurant(restaurant);
   // Adding sizes behaviour with media queries.
   image.sizes=DBHelper.imageSizesForRestaurant(restaurant);
   li.append(image);
 
-  const name = document.createElement('h1');
+  // The element must be h2, h1 is for the name of the webpage
+  const name = document.createElement('h2');
   name.innerHTML = restaurant.name;
   li.append(name);
 
@@ -160,6 +165,7 @@ createRestaurantHTML = (restaurant) => {
 
   const more = document.createElement('a');
   more.innerHTML = 'View Details';
+  more.setAttribute('aria-label', 'View Details for ' + restaurant.name);
   more.href = DBHelper.urlForRestaurant(restaurant);
   li.append(more)
 
