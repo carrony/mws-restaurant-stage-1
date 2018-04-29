@@ -1,17 +1,18 @@
-const staticCacheName = 'reviews-static-v1';
-const contentImgsCache = 'reviews-content-imgs';
+let staticCacheName = 'reviews-static-v1';
+let contentImgsCache = 'reviews-content-imgs';
 
-const urlsToCache = [
-    './',
-    './index.html',
-    './restaurant.html',
-    './css/style.css',
-    './data/restaurants.json',
-    './js/dbhelper.js',
-    './js/main.js',
-    './js/restaurant_info.js',
-    './js/sw_register.js'
+let urlsToCache = [
+    '/',
+    '/index.html',
+    '/restaurant.html',
+    '/css/styles.css',
+    '/data/restaurants.json',
+    '/js/dbhelper.js',
+    '/js/main.js',
+    '/js/restaurant_info.js',
+    '/js/sw_register.js'
 ];
+
 
 self.addEventListener("install", function (event) {
     console.log("service worker installed.");
@@ -23,6 +24,38 @@ self.addEventListener("install", function (event) {
         })
     );
 });
+
+self.addEventListener('fetch', function(event) {
+    var requestUrl = new URL(event.request.url);
+
+    if (requestUrl.origin === location.origin) {
+      if (requestUrl.pathname.startsWith('/img/')) {
+        event.respondWith(servePhoto(event.request));
+        return;
+      }
+    }
+
+    event.respondWith(
+      caches.match(event.request).then(function(response) {
+        return response || fetch(event.request);
+      })
+    );
+  });
+
+  function servePhoto(request) {
+    var storageUrl = request.url.replace(/-[small|medium|large]\.jpg$/, '');
+
+    return caches.open(contentImgsCache).then(function(cache) {
+      return cache.match(storageUrl).then(function(response) {
+        if (response) return response;
+
+        return fetch(request).then(function(networkResponse) {
+          cache.put(storageUrl, networkResponse.clone());
+          return networkResponse;
+        });
+      });
+    });
+  }
 
 
 
